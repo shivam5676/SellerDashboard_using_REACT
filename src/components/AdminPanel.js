@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const AdminPanel = () => {
+const AdminPanel = (props) => {
   const [intialId, setIntialId] = useState("");
   const [intialName, setIntialName] = useState("");
   const [intialSellingPrice, setIntialSellingPrice] = useState("");
@@ -26,27 +26,7 @@ const AdminPanel = () => {
   const formDataHandler = (event) => {
     event.preventDefault();
     localStorage.setItem(intialId, JSON.stringify(FormData));
-    const parentElectronic = document.getElementById("Electronic items");
-    const parentFood = document.getElementById("Food items");
-    const parentSkincare = document.getElementById("Skincare items");
-    const childelement = document.createElement("li");
-    childelement.id = "list";
-    childelement.textContent =
-      FormData.id +
-      "=>" +
-      FormData.name +
-      "=>" +
-      FormData.price +"=>"+
-      FormData.category;
-    if (FormData.category == "Electronic items") {
-      parentElectronic.appendChild(childelement);
-    }
-    if (FormData.category == "Food items") {
-      parentFood.appendChild(childelement);
-    }
-    if (FormData.category == "Skincare items") {
-      parentSkincare.appendChild(childelement);
-    }
+    props.submitForm(FormData);
 
     setIntialCategory("");
     setIntialId("");
@@ -75,16 +55,6 @@ const AdminPanel = () => {
         </select>
         <button>submit</button>
       </form>
-
-      <li id="Electronic items">
-        <h2>Electronic items</h2>
-      </li>
-      <li id="Food items">
-        <h2>Food items</h2>
-      </li>
-      <li id="Skincare items">
-        <h2>Skincare items</h2>
-      </li>
     </React.Fragment>
   );
 };
